@@ -58,57 +58,36 @@ def clear_screen():
 
 
 def print_banner():
-    # Simple ASCII art for "T ENCODER"
+    """Display T ENCODER banner - compact version for all screens."""
+    # Compact ASCII art for "T ENCODER" (fits mobile screens)
     banner_lines = [
-        "████████╗    ███████╗███╗   ██╗ ██████╗ ██████╗ ███████╗██████╗ ",
-        "╚══██╔══╝    ██╔════╝████╗  ██║██╔═══██╗██╔══██╗██╔════╝██╔══██╗",
-        "   ██║       █████╗  ██╔██╗ ██║██║   ██║██║  ██║█████╗  ██████╔╝",
-        "   ██║       ██╔══╝  ██║╚██╗██║██║   ██║██║  ██║██╔══╝  ██╔══██╗",
-        "   ██║       ███████╗██║ ╚████║╚██████╔╝██████╔╝███████╗██║  ██║",
-        "   ╚═╝       ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝",
+        "████████╗███████╗███╗   ██╗ ██████╗ ██████╗ ███████╗██████╗ ",
+        "╚══██╔══╝██╔════╝████╗  ██║██╔═══██╗██╔══██╗██╔════╝██╔══██╗",
+        "   ██║   █████╗  ██╔██╗ ██║██║   ██║██║  ██║█████╗  ██████╔╝",
+        "   ██║   ██╔══╝  ██║╚██╗██║██║   ██║██║  ██║██╔══╝  ██╔══██╗",
+        "   ██║   ███████╗██║ ╚████║╚██████╔╝██████╔╝███████╗██║  ██║",
+        "   ╚═╝   ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝",
     ]
 
-    
-    gradient_colors = [
-        (128, 0, 128),    # Purple
-        (255, 0, 128),    # Pink
-        (255, 100, 0),    # Orange
-        (255, 200, 0),    # Gold
-    ]
+    # Simple purple color (works on all terminals)
+    PURPLE = "[38;5;129m"  # Medium purple
+    BRIGHT_PURPLE = "[38;5;141m"  # Light purple
+    WHITE = "[38;5;255m"
+    CYAN = "[38;5;51m"
+    GREEN = "[38;5;82m"
+    GRAY = "[38;5;245m"
+    RESET = "[0m"
 
-    
-    num_lines = len(banner_lines)
-
+    # Print banner with simple purple gradient
     for i, line in enumerate(banner_lines):
-        # Calculate color position in gradient
-        if num_lines > 1:
-            ratio = i / (num_lines - 1)
-        else:
-            ratio = 0
+        # Alternate between purple shades for subtle effect
+        color = PURPLE if i % 2 == 0 else BRIGHT_PURPLE
+        print(f"{color}{line}{RESET}")
 
-        # Interpolate between colors
-        color_idx = ratio * (len(gradient_colors) - 1)
-        idx1 = int(color_idx)
-        idx2 = min(idx1 + 1, len(gradient_colors) - 1)
-        frac = color_idx - idx1
-
-        r1, g1, b1 = gradient_colors[idx1]
-        r2, g2, b2 = gradient_colors[idx2]
-
-        r = int(r1 + (r2 - r1) * frac)
-        g = int(g1 + (g2 - g1) * frac)
-        b = int(b1 + (b2 - b1) * frac)
-
-        # Print with RGB color
-        print("[38;2;{};{};{}m{}[0m".format(r, g, b, line))
-
-    # Credits line
+    # Credits line - compact for small screens
     print()
-    print("[38;2;0;255;255mDeveloper: [38;2;255;255;255mtepeed" +
-          "[38;2;0;255;255m  |  Telegram: [38;2;255;255;255m@wlzbi" +
-          "[38;2;0;255;255m  |  GitHub: [38;2;255;255;255mhttps://github.com/tepeed" +
-          "[38;2;0;255;255m  |  [38;2;0;255;0mACTIVE[0m")
-    print("[38;2;100;100;100m" + "-" * 70 + "[0m")
+    print(f"{CYAN}Developer: {WHITE}tepeed{CYAN} | Telegram: {WHITE}@wlzbi{CYAN} | GitHub: {WHITE}tepeed{CYAN} | {GREEN}ACTIVE{RESET}")
+    print(f"{GRAY}{'-' * 55}{RESET}")
 
 
 def check_pyarmor_version():
