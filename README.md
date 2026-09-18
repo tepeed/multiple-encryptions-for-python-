@@ -1,3 +1,4 @@
+<img width="720" height="679" alt="46332" src="https://github.com/user-attachments/assets/4e27fa14-b7c8-45e4-bc50-450d1918f3a8" />
 T ENCODER 🔐
 
 A powerful multi-encoding Python obfuscator by tepeed. Encode your Python scripts using 23 different encoding methods, generate ready-to-run decoders, obfuscate with PyArmor, and build standalone EXEs with PyInstaller.
