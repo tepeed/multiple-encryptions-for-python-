@@ -58,36 +58,19 @@ def clear_screen():
 
 
 def print_banner():
-    """Display T ENCODER banner - compact version for all screens."""
-    # Compact ASCII art for "T ENCODER" (fits mobile screens)
-    banner_lines = [
-        "████████╗███████╗███╗   ██╗ ██████╗ ██████╗ ███████╗██████╗ ",
-        "╚══██╔══╝██╔════╝████╗  ██║██╔═══██╗██╔══██╗██╔════╝██╔══██╗",
-        "   ██║   █████╗  ██╔██╗ ██║██║   ██║██║  ██║█████╗  ██████╔╝",
-        "   ██║   ██╔══╝  ██║╚██╗██║██║   ██║██║  ██║██╔══╝  ██╔══██╗",
-        "   ██║   ███████╗██║ ╚████║╚██████╔╝██████╔╝███████╗██║  ██║",
-        "   ╚═╝   ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝",
-    ]
-
-    # Simple purple color (works on all terminals)
-    PURPLE = "[38;5;129m"  # Medium purple
-    BRIGHT_PURPLE = "[38;5;141m"  # Light purple
-    WHITE = "[38;5;255m"
-    CYAN = "[38;5;51m"
-    GREEN = "[38;5;82m"
-    GRAY = "[38;5;245m"
-    RESET = "[0m"
-
-    # Print banner with simple purple gradient
-    for i, line in enumerate(banner_lines):
-        # Alternate between purple shades for subtle effect
-        color = PURPLE if i % 2 == 0 else BRIGHT_PURPLE
-        print(f"{color}{line}{RESET}")
-
-    # Credits line - compact for small screens
+    """Display T ENCODER banner - compact for mobile."""
+    # Small banner
+    print("[38;5;129m" + "=" * 50)
+    print("     ████████╗███████╗███╗   ██╗ ██████╗ ██████╗ ███████╗██████╗ ")
+    print("     ╚══██╔══╝██╔════╝████╗  ██║██╔═══██╗██╔══██╗██╔════╝██╔══██╗")
+    print("        ██║   █████╗  ██╔██╗ ██║██║   ██║██║  ██║█████╗  ██████╔╝")
+    print("        ██║   ██╔══╝  ██║╚██╗██║██║   ██║██║  ██║██╔══╝  ██╔══██╗")
+    print("        ██║   ███████╗██║ ╚████║╚██████╔╝██████╔╝███████╗██║  ██║")
+    print("        ╚═╝   ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝")
+    print("=" * 50 + "[0m")
     print()
-    print(f"{CYAN}Developer: {WHITE}tepeed{CYAN} | Telegram: {WHITE}@wlzbi{CYAN} | GitHub: {WHITE}tepeed{CYAN} | {GREEN}ACTIVE{RESET}")
-    print(f"{GRAY}{'-' * 55}{RESET}")
+    print("[38;5;51mDeveloper: [38;5;255mtepeed[38;5;51m | Telegram: [38;5;255m@wlzbi[38;5;51m | GitHub: [38;5;255mtepeed[38;5;51m | [38;5;82mACTIVE[0m")
+    print()
 
 
 def check_pyarmor_version():
@@ -495,30 +478,22 @@ def print_helper():
 
 def print_menu():
     print_banner_with_timezone()
-    labels = (
-        "Exit", "ROT13", "Zlib", "Gzip", "Pyc (Emoji)", "Base85", "Base16", "Base64", "Base32",
-        "XOR + Base64", "Marshal + Gzip", "Marshal + Zlib", "Marshal + Base16", "Marshal + Base64",
-        "Marshal + Base85", "Pickle + Base64", "Base32 + BinAscii", "Marshal + Lzma + Base64",
-        "Marshal + Zlib + Base16", "Marshal + Zlib + Base64", "Marshal + Zlib + Base32",
-        "Marshal + Bz2 + Base64", "Base64 + Marshal + Lzma + Zlib", "Marshal + Bz2 + Lzma + Base85",
-        "PyArmor Obfuscate", "Install all required packages", "Helper - Usage & Info",
-        "Python script to EXE (PyInstaller)", "PyArmor + EXE (Obfuscate + PyInstaller)"
-    )
-    col_width = 55
-    total = len(labels)
-    half = (total + 1) // 2
+    labels = [
+        "Exit", "ROT13", "Zlib", "Gzip", "Pyc (Emoji)", "Base85", "Base16", "Base64",
+        "Base32", "XOR + Base64", "Marshal + Gzip", "Marshal + Zlib", "Marshal + Base16",
+        "Marshal + Base64", "Marshal + Base85", "Pickle + Base64", "Base32 + BinAscii",
+        "Marshal + Lzma + Base64", "Marshal + Zlib + Base16", "Marshal + Zlib + Base64",
+        "Marshal + Zlib + Base32", "Marshal + Bz2 + Base64", "Base64 + Marshal + Lzma + Zlib",
+        "Marshal + Bz2 + Lzma + Base85", "PyArmor Obfuscate", "Install packages",
+        "Helper - Info", "Python to EXE", "PyArmor + EXE"
+    ]
 
-    def colored_option(idx, label):
+    for idx, label in enumerate(labels):
         if idx == 0:
-            return f"{Fore.WHITE}({Fore.RED}00{Fore.WHITE}) {Fore.RED}Exit{Fore.RESET}"
-        return f"{Fore.YELLOW}({Fore.MAGENTA}{str(idx).zfill(2)}{Fore.YELLOW}){Fore.LIGHTWHITE_EX} {label}{Fore.RESET}"
-
-    for i in range(half):
-        left_idx = i
-        right_idx = i + half
-        left = colored_option(left_idx, labels[left_idx]).ljust(col_width)
-        right = colored_option(right_idx, labels[right_idx]) if right_idx < total else ""
-        print(left + right)
+            print(f"[38;5;255m([38;5;196m00[38;5;255m) [38;5;196mExit[0m")
+        else:
+            print(f"[38;5;220m([38;5;129m{str(idx).zfill(2)}[38;5;220m) [38;5;255m{label}[0m")
+    print()
 
 
 async def main():
