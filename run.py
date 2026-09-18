@@ -58,18 +58,12 @@ def clear_screen():
 
 
 def print_banner():
-    """Display T ENCODER banner - compact for mobile."""
-    # Small banner
-    print("[38;5;129m" + "=" * 50)
-    print("     ████████╗███████╗███╗   ██╗ ██████╗ ██████╗ ███████╗██████╗ ")
-    print("     ╚══██╔══╝██╔════╝████╗  ██║██╔═══██╗██╔══██╗██╔════╝██╔══██╗")
-    print("        ██║   █████╗  ██╔██╗ ██║██║   ██║██║  ██║█████╗  ██████╔╝")
-    print("        ██║   ██╔══╝  ██║╚██╗██║██║   ██║██║  ██║██╔══╝  ██╔══██╗")
-    print("        ██║   ███████╗██║ ╚████║╚██████╔╝██████╔╝███████╗██║  ██║")
-    print("        ╚═╝   ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝")
-    print("=" * 50 + "[0m")
+    """Display T ENCODER banner - mobile friendly."""
+    print("[38;5;129m╔" + "═" * 44 + "╗")
+    print("║[38;5;255m            T  E  N  C  O  D  E  R            [38;5;129m║")
+    print("╚" + "═" * 44 + "╝[0m")
     print()
-    print("[38;5;51mDeveloper: [38;5;255mtepeed[38;5;51m | Telegram: [38;5;255m@wlzbi[38;5;51m | GitHub: [38;5;255mtepeed[38;5;51m | [38;5;82mACTIVE[0m")
+    print("[38;5;51mDev: [38;5;255mtepeed[38;5;51m | TG: [38;5;255m@wlzbi[38;5;51m | GH: [38;5;255mgithub.com/tepeed[0m")
     print()
 
 
@@ -478,21 +472,61 @@ def print_helper():
 
 def print_menu():
     print_banner_with_timezone()
-    labels = [
-        "Exit", "ROT13", "Zlib", "Gzip", "Pyc (Emoji)", "Base85", "Base16", "Base64",
-        "Base32", "XOR + Base64", "Marshal + Gzip", "Marshal + Zlib", "Marshal + Base16",
-        "Marshal + Base64", "Marshal + Base85", "Pickle + Base64", "Base32 + BinAscii",
-        "Marshal + Lzma + Base64", "Marshal + Zlib + Base16", "Marshal + Zlib + Base64",
-        "Marshal + Zlib + Base32", "Marshal + Bz2 + Base64", "Base64 + Marshal + Lzma + Zlib",
-        "Marshal + Bz2 + Lzma + Base85", "PyArmor Obfuscate", "Install packages",
-        "Helper - Info", "Python to EXE", "PyArmor + EXE"
+
+    left = [
+        ("00", "Exit",              Fore.RED),
+        ("01", "ROT13",             None),
+        ("02", "Zlib",              None),
+        ("03", "Gzip",              None),
+        ("04", "Pyc Emoji",         None),
+        ("05", "Base85",            None),
+        ("06", "Base16",            None),
+        ("07", "Base64",            None),
+        ("08", "Base32",            None),
+        ("09", "XOR+B64",           None),
+        ("10", "Marshal+Gzip",      None),
+        ("11", "Marshal+Zlib",      None),
+        ("12", "Marshal+B16",       None),
+        ("13", "Marshal+B64",       None),
+        ("14", "Marshal+B85",       None),
     ]
 
-    for idx, label in enumerate(labels):
-        if idx == 0:
-            print(f"[38;5;255m([38;5;196m00[38;5;255m) [38;5;196mExit[0m")
-        else:
-            print(f"[38;5;220m([38;5;129m{str(idx).zfill(2)}[38;5;220m) [38;5;255m{label}[0m")
+    right = [
+        ("15", "Pickle+B64",        None),
+        ("16", "B32+BinAscii",      None),
+        ("17", "Msh+Lzma+B64",      None),
+        ("18", "Msh+Zlib+B16",      None),
+        ("19", "Msh+Zlib+B64",      None),
+        ("20", "Msh+Zlib+B32",      None),
+        ("21", "Msh+Bz2+B64",       None),
+        ("22", "B64+M+Lzma+Zlib",   None),
+        ("23", "M+Bz2+Lzma+B85",    None),
+        ("24", "PyArmor",           Fore.CYAN),
+        ("25", "Install pkgs",      Fore.CYAN),
+        ("26", "Helper",            Fore.CYAN),
+        ("27", "Py to EXE",         Fore.CYAN),
+        ("28", "PyArmor + EXE",     Fore.CYAN),
+        ("",   "",                  None),
+    ]
+
+    def fmt(num, label, color):
+        if not num:
+            return ""
+        if color == Fore.RED:
+            return f"{Fore.WHITE}({Fore.RED}{num}{Fore.WHITE}) {Fore.RED}{label}{Fore.RESET}"
+        if color == Fore.CYAN:
+            return f"{Fore.WHITE}({Fore.CYAN}{num}{Fore.WHITE}) {Fore.CYAN}{label}{Fore.RESET}"
+        return f"{Fore.YELLOW}({Fore.MAGENTA}{num}{Fore.YELLOW}) {Fore.LIGHTWHITE_EX}{label}{Fore.RESET}"
+
+    for (ln, ll, lc), (rn, rl, rc) in zip(left, right):
+        left_txt = fmt(ln, ll, lc)
+        right_txt = fmt(rn, rl, rc)
+
+        visible = len(f"({ln}) {ll}") if ln else 0
+        pad = " " * max(0, 26 - visible)
+
+        print(f"{left_txt}{pad}{right_txt}")
+
     print()
 
 
