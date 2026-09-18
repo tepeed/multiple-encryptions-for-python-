@@ -1,6 +1,5 @@
 pyarmor
 pycryptodome
-pyc
 cython
 pyinstaller
 colorama
@@ -12,8 +11,6 @@ httpx[http2]
 requests
 requests[socks]
 bs4
-asyncio
 aiofiles
 aiohttp
 aiohttp_socks
-cookiejar
